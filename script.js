@@ -84,3 +84,9 @@ function objectName(){
         }
     }
 }
+function onClickMouse(event){
+    var x = event.offsetX;
+    var y = event.offsetY;
+    objectSelected = null;
+    console.log("x coords: " + x + ", y coords: " + y);
+}
