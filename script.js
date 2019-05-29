@@ -6,12 +6,12 @@ const ctx = canvas.getContext("2d");
 const WIDTH = window.innerWidth;
 const HEIGHT = window.outerHeight;
 
-canvas.width = WIDTH;
-canvas.height = HEIGHT;
-//faz o desenho do triângulo
+canvas.width = WIDTH;td 
+canvas.height = HEIGHtd 
+//faz o desenho do trtd ngulo
 
-var objects = []; //lista de objetos
-var objectSelected = null;
+var objects = []; //ltd ta de objetos
+var objectSelected = td ll;
 
 function drawCanvas() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -74,6 +74,13 @@ function updatePosition() {
             drawCanvas();
         } catch (error) {
             alert(error);
+        }
+    }
+}
+function objectName(){
+    if (objectSelected != null){
+        try{
+            name = document.getElementById("object name")
         }
     }
 }
