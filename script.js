@@ -6,12 +6,12 @@ const ctx = canvas.getContext("2d");
 const WIDTH = window.innerWidth;
 const HEIGHT = window.outerHeight;
 
-canvas.width = WIDTH;td 
-canvas.height = HEIGHtd 
-//faz o desenho do trtd ngulo
+canvas.width = WIDTH;
+canvas.height = HEIGHT;
+//faz o desenho do triângulo
 
-var objects = []; //ltd ta de objetos
-var objectSelected = td ll;
+var objects = []; //lista de objetos
+var objectSelected = null;
 
 function drawCanvas() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
@@ -68,8 +68,8 @@ function updateDisplay(objectSelected) {
 function updatePosition() {
     if (objectSelected != null) {
         try {
-            posx = parseFloat(document.getElementById("posx").value);
-            posy = parseFloat(document.getElementById("posy").value);
+            var posx = parseFloat(document.getElementById("posx").value);
+            var posy = parseFloat(document.getElementById("posy").value);
             objectSelected.setTranslate(posx, posy);
             drawCanvas();
         } catch (error) {
@@ -77,16 +77,59 @@ function updatePosition() {
         }
     }
 }
-function objectName(){
-    if (objectSelected != null){
-        try{
-            name = document.getElementById("object name")
+
+
+function scaleObject() {
+    if (objectSelected != null) {
+        try {
+            var posx = parseFloat(document.getElementById("scalex").value);
+            var posy = parseFloat(document.getElementById("scaley").value);
+            objectSelected.setScale(posx, posy);
+            drawCanvas();
+        } catch (error) {
+            alert(error);
         }
     }
 }
-function onClickMouse(event){
+
+function rotateObject() {
+    if (objectSelected != null) {
+        try {
+            var angle = parseFloat(document.getElementById("angle").value);
+            objectSelected.setRotate(angle);
+            drawCanvas();
+        } catch (error) {
+            alert(error);
+        }
+    }
+}
+function colorFillObject() {
+    if (objectSelected != null) {
+        try {
+            var colorFillObject = document.getElementById("colorObject").value;
+            objectSelected.setFill(colorFillObject);
+            drawCanvas();
+        } catch (error) {
+            alert(error);
+        }
+    }
+}
+function colorStrokeObject() {
+    if (objectSelected != null) {
+        try {
+            var colorStrokeObject = document.getElementById("colorObjectStroke").value;
+            objectSelected.setStroke(colorStrokeObject);
+            drawCanvas();
+        } catch (error) {
+            alert(error);
+        }
+    }
+}
+/*** Tip (Dica) ***/
+function onClickMouse(event) {
     var x = event.offsetX;
     var y = event.offsetY;
-    objectSelected = null;
+    var coor = multVec(transformUsual(WIDTH,HEIGHT),[x,y,1]);
     console.log("x coords: " + x + ", y coords: " + y);
+    console.log("x usualcoords: " + coor[0] + ", y usualcoords: " + coor[1]);
 }
