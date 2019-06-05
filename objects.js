@@ -20,6 +20,7 @@ Box.prototype.setName = function(name) {
     this.name = name;
 }
 
+
 Box.prototype.setTranslate = function(x, y) {
     this.T = translate(x, y);
 }
@@ -42,9 +43,43 @@ Box.prototype.setFill = function(x) {
 Box.prototype.setStroke = function(x) {
     this.stroke = x;
 }
-//Box.prototype.TryIntersection = function(x,y){
 
-//}
+Box.prototype.getInverseScale = function(){
+    return inverseScale(this.S);
+}
+Box.prototype.getInverseRotation = function(){
+    return inverseRotate(this.R);
+}
+Box.prototype.getInverseTranslate = function(){
+    return inverseTranslate(this.T);
+}
+
+Box.prototype.tryIntersection = function(coordenadas){
+    console.log("Tenta interseção com caixa")
+
+    var inverse_scale = this.getInverseScale();
+    var inverse_rotate = this.getInverseRotation();
+    var inverse_translate = this.getInverseTranslate();
+
+    var inverse_m = mult(mult(inverse_scale, inverse_rotate), inverse_translate);
+    var coords_1 = multVec(inverse_m, coordenadas);
+
+    var points = [];
+    points.push([this.center[0] + this.width / 2, this.center[1] + this.height / 2, 1]);
+    points.push([this.center[0] - this.width / 2, this.center[1] + this.height / 2, 1]);
+    points.push([this.center[0] - this.width / 2, this.center[1] - this.height / 2, 1]);
+    points.push([this.center[0] + this.width / 2, this.center[1] - this.height / 2, 1]);
+
+    if(coords_1[0] >= points[1][0] && coords_1[0] <= points[0][0]) {
+        if(coords_1[1] >= points[2][1] && coords_1[1] <= points[1][1]){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 
 Box.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas
@@ -91,6 +126,28 @@ function Circle(center = [0, 0, 1], radius = 50) {
     this.name = "";
 }
 
+Circle.prototype.tryIntersection = function(coordenadas){
+    console.log("Tenta interseção com circulo")
+    var ir = this.getInverseRotation();
+    var it = this.getInverseTranslate();
+    var is = this.getInverseScale();
+
+    var mg = mult(mult(is, ir), it);
+
+    var pl = multVec(mg, coordenadas);
+
+    var x = Math.pow(pl[0] - this.center[0], 2);
+    var y = Math.pow(pl[1] - this.center[1], 2);
+
+    var d = Math.sqrt(x+y);
+
+    if(d<= this.radius){
+        return true;
+    }else{
+        return false;
+    }
+}
+
 Circle.prototype.setName = function(name) {
     this.name = name;
 }
@@ -122,6 +179,16 @@ Circle.prototype.setFill = function(fill) {
 Circle.prototype.setStroke = function(x) {
     this.stroke = x;
 }
+Circle.prototype.getInverseTranslate = function(){
+    return inverseTranslate(this.T);
+}
+Circle.prototype.getInverseRotation= function(){
+    return inverseRotate(this.R);
+}
+Circle.prototype.getInverseScale = function(){
+    return inverseScale(this.S);
+}
+
 
 Circle.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas

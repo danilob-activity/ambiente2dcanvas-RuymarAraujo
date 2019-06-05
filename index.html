@@ -36,7 +36,7 @@
                             </tr>
                             <tr>
                                 <td>Name:</td>
-                                <td width="90%"><input type="text" id="name"></td>
+                                <td width="90%"><input type="text" id="name" oninput="updateName();"></td>
                             </tr>
                             <tr>
                                 <td>Translate:</td>
@@ -74,7 +74,7 @@
         <div class="content-wrap">
             <div class="content">
                 <canvas id="canvas" style="display:block; width:100%;
-				height:100%;" onclick="onClickMouse(event)"></canvas>
+				height:100%;" onclick="onClickMouse(event);"></canvas>
                 <!-- Related demos -->
 
             </div>

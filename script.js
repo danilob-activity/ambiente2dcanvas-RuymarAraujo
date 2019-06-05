@@ -12,7 +12,7 @@ canvas.height = HEIGHT;
 
 var objects = []; //lista de objetos
 var objectSelected = null;
-
+var flag = 0;
 function drawCanvas() {
     ctx.clearRect(0, 0, WIDTH, HEIGHT);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
@@ -37,6 +37,11 @@ function drawAxis() {
     ctx.setLineDash([]);
 
 
+}
+function updateName(){
+  var name = document.getElementById("name").value;
+  objectSelected.setName(name);
+  drawCanvas();
 }
 
 window.addEventListener("load", drawCanvas);
@@ -91,15 +96,9 @@ function scaleObject() {
         }
     }
 }
-// function overClick(event){
-//     flag = 0;
-// }
-// canvas.addEventListener("dblclick", setToMoveObject);
 
-// function setToMoveObject(){
-//     flag = 1;
-// }
-// document.addEventListener('keydown', function(event));
+
+
 
 function rotateObject() {
     if (objectSelected != null) {
@@ -144,25 +143,46 @@ function colorStrokeObject() {
 function onClickMouse(event) {
     var x = event.offsetX;
     var y = event.offsetY;
+    objectSelected=null;
     var coor = multVec(transformUsual(WIDTH,HEIGHT),[x,y,1]);
     console.log("x coords: " + x + ", y coords: " + y);
     console.log("x usualcoords: " + coor[0] + ", y usualcoords: " + coor[1]);
+
+    for(var i=0; i<objects.length; i++){
+        if(objects[i].tryIntersection(coor)){
+            console.log("Houve interseção!")
+            objectSelected=objects[i];
+        } else {
+            console.log("Não houve interseção")
+        }
+    }
 }
-//     for(var i=0; i<=objects.length, i++){
-//         if(objects[i].tryIntersection(coor)){
-//             console.log("Houve interseção!")
-//         } else {
-//             console.log("Não houve interseção")
-//         }
-//     }
-// }
-// function moveObject(event){
-//     if(flag==1){
-//         if(objectSelected != null){
-//             var x = event.offsetX;
-//             var y = event.offsetY;
-//             var pos = multVec(transformUsual(WIDTH))
-//             objectSelected.setTranslate(pos[0])
-//         }
-//     }
-// }
+ function overClick(event){
+     flag = 0;
+ }
+ 
+
+ function setToMoveObject(){
+     flag = 1;
+ }
+
+ canvas.addEventListener("dblclick", setToMoveObject);
+ canvas.addEventListener("mousemove", moveObject);
+ canvas.addEventListener("click", overClick);
+
+
+function moveObject(event){
+    if(flag==1){
+        if(objectSelected != null){
+            var x = event.offsetX;
+            var y = event.offsetY;
+
+            var m = transformUsual(WIDTH, HEIGHT);
+
+            var click = [x,y,1];
+            var pos = multVec(m, click);
+            objectSelected.setTranslate(pos[0], pos[1]);
+            drawCanvas();
+        }
+    }
+}
