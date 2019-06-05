@@ -42,6 +42,9 @@ Box.prototype.setFill = function(x) {
 Box.prototype.setStroke = function(x) {
     this.stroke = x;
 }
+//Box.prototype.TryIntersection = function(x,y){
+
+//}
 
 Box.prototype.draw = function(canv = ctx) { //requer o contexto de desenho
     //pega matriz de tranformação de coordenadas canônicas para coordenadas do canvas

@@ -91,6 +91,15 @@ function scaleObject() {
         }
     }
 }
+// function overClick(event){
+//     flag = 0;
+// }
+// canvas.addEventListener("dblclick", setToMoveObject);
+
+// function setToMoveObject(){
+//     flag = 1;
+// }
+// document.addEventListener('keydown', function(event));
 
 function rotateObject() {
     if (objectSelected != null) {
@@ -111,6 +120,12 @@ function colorFillObject() {
             drawCanvas();
         } catch (error) {
             alert(error);
+        }function inverseRotate(mat){
+            return[
+                [mat[0][0],mat[1][0],0],
+                [mat[0][1],mat[1][1],0],
+                [0,0,1]
+            ];
         }
     }
 }
@@ -133,3 +148,21 @@ function onClickMouse(event) {
     console.log("x coords: " + x + ", y coords: " + y);
     console.log("x usualcoords: " + coor[0] + ", y usualcoords: " + coor[1]);
 }
+//     for(var i=0; i<=objects.length, i++){
+//         if(objects[i].tryIntersection(coor)){
+//             console.log("Houve interseção!")
+//         } else {
+//             console.log("Não houve interseção")
+//         }
+//     }
+// }
+// function moveObject(event){
+//     if(flag==1){
+//         if(objectSelected != null){
+//             var x = event.offsetX;
+//             var y = event.offsetY;
+//             var pos = multVec(transformUsual(WIDTH))
+//             objectSelected.setTranslate(pos[0])
+//         }
+//     }
+// }

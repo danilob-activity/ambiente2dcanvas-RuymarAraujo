@@ -92,3 +92,24 @@ function calcDeterminantTriangle(p0, p1, p2) {
     if (area < 0) return -area;
     return area;
 }
+// function inverseRotate(mat){
+//     return[
+//         [mat[0][0],mat[1][0],0],
+//         [mat[0][1],mat[1][1],0],
+//         [0,0,1]
+//     ];
+// }
+// function inverseScale(mat){
+//     return[
+//         [1 / mat[0][0],0,0],
+//         [0,1. / mat[1][1],0],
+//         [0,0,1] //retorna matriz 3x3
+//     ];
+// }
+// function inverseTranslate(mat){
+//     return[
+//         [1,0, -mat[0][2]],
+//         [0, 1 , -mat[1][2]],
+//         [0,0,1]
+//     ];  //retorna matrix 3x3
+// }
